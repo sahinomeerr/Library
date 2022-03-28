@@ -12,32 +12,40 @@ namespace Library
         public int bookshelfNumber { get; set; }
         public Bookshelf(int bookshelfNumber)
         {
-            this.bookshelfNumber = bookshelfNumber;  
+            this.bookshelfNumber = bookshelfNumber;
         }
         public void AddBookshelf()
         {
-                Shelf shelf1 = new Shelf(0,1,bookshelfNumber);
-                Shelf shelf2 = new Shelf(0,2,bookshelfNumber);
-                Shelf shelf3 = new Shelf(0,3,bookshelfNumber);
-                shelfList.Add(shelf1);
-                shelfList.Add(shelf2);
-                shelfList.Add(shelf3);            
+            Shelf shelf1 = new Shelf(0, 1, bookshelfNumber);
+            Shelf shelf2 = new Shelf(0, 2, bookshelfNumber);
+            Shelf shelf3 = new Shelf(0, 3, bookshelfNumber);
+            shelfList.Add(shelf1);
+            shelfList.Add(shelf2);
+            shelfList.Add(shelf3);
+            Console.WriteLine("Bookshelf is successfully added");
         }
-        public void AddBook(string name,int pageNumber)
+        public void AddBook(string name, int pageNumber)
         {
-            foreach(Shelf item in shelfList)
-            {                              
+            bool isThereAPlaceLeft = false;
+            foreach (Shelf item in shelfList)
+            {
                 if (item.AddBook(name, pageNumber))
                 {
+                    Console.WriteLine("The book is added succesfully");
+                    isThereAPlaceLeft = true;   
                     break;
                 }
-            }   
+            }
+            if (!isThereAPlaceLeft)
+            {
+                Console.WriteLine("There is no empty space"); 
+            }
         }
         public bool FindBook(string bookName)
         {
             foreach (Shelf item in shelfList)
             {
-                if(item.FindBook(bookName))
+                if (item.FindBook(bookName))
                 {
                     return true;
                 }
@@ -46,7 +54,7 @@ namespace Library
         }
         public string GetBookLocation(string bookName)
         {
-            foreach(Shelf item in shelfList)
+            foreach (Shelf item in shelfList)
             {
                 if (item.GetBookLocation(bookName) != null)
                 {
@@ -57,16 +65,16 @@ namespace Library
         }
         public void BorrowBook(string nameBook)
         {
-            foreach(Shelf item in shelfList)
+            foreach (Shelf item in shelfList)
             {
                 item.BorrowBook(nameBook);
             }
         }
         public int GetNumberPageOfBook(string nameBook)
         {
-            foreach(Shelf item in shelfList)
+            foreach (Shelf item in shelfList)
             {
-                if(item.GetNumberPageOfBook(nameBook) != 0)
+                if (item.GetNumberPageOfBook(nameBook) != 0)
                 {
                     return item.GetNumberPageOfBook(nameBook);
                 }

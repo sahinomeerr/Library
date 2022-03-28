@@ -8,8 +8,9 @@ namespace Library
 {
     internal class Shelf
     {
+        
         List<Book> books = new List<Book>();       
-        int shelfLimit = 5;
+        int shelfLimit = 1;
         int shelfNumber;
         int bookshelfNumber;
         int currentBookNumberInShelf=0;
@@ -25,7 +26,7 @@ namespace Library
             {
                 Book book = new Book(name, pageNumber,shelfNumber,bookshelfNumber);
                 books.Add(book);
-                currentBookNumberInShelf++;
+                currentBookNumberInShelf++;               
                 return true;
             }
             return false;
@@ -34,8 +35,8 @@ namespace Library
         {
             foreach(Book item in books)
             {
-                if (item.Equals(bookName))
-                {                                      
+                if (item.name.Equals(bookName))
+                {                                                        
                     return true;
                 }
             }
@@ -45,7 +46,7 @@ namespace Library
         {
             foreach (Book item in books)
             {
-                if (item.Equals(bookName))
+                if (item.name.Equals(bookName))
                 {
                     return item.bookshelfNumber + ". Bookshelf " + item.shelfNumber + ". Shelf";
                 }
@@ -56,9 +57,10 @@ namespace Library
         {
             foreach(Book item in books)
             {
-                if (item.Equals(nameBook))
+                if (item.name.Equals(nameBook))
                 {
                     books.Remove(item);
+                    break;
                 }
             }
         }
@@ -66,7 +68,7 @@ namespace Library
         {
             foreach(Book item in books)
             {
-                if (item.Equals(nameBook))
+                if (item.name.Equals(nameBook))
                 {
                     return item.pageNumber;
                 }

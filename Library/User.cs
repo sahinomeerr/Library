@@ -13,13 +13,11 @@ namespace Library
         public string nameBook { get; set; }
         List<Book> booksOwnedByUser = new List<Book>();
 
-        public User(string nameBook,int pageNumber,string nameBuyer)
+        public User(string nameBuyer)
         {
-            this.nameBook = nameBook;
-            this.pageNumber = pageNumber;
             this.nameBuyer = nameBuyer;
         }
-        public void BorrowedBook()
+        public void BorrowedBook(string nameBook,int pageNumber)
         {
             Book book = new Book(nameBook, pageNumber,0, 0);
             booksOwnedByUser.Add(book);

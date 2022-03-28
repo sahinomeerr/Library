@@ -26,14 +26,21 @@ namespace Library
                 if (isNumberOfPagesInt && !FindBook(nameBook))
                 {
                     library.AddBook(nameBook, numberPagesBook);
-                    Console.WriteLine("The book is successfully added!");
+                    Console.WriteLine(GetBookLocation(nameBook));
                     GoStartUp();
+                }
+                else if(isNumberOfPagesInt && FindBook(nameBook))
+                {
+                    Console.Clear();
+                    Console.WriteLine("That book already exists");
+                    GoStartUp();
+                    AddBook(nameBook);
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("You must enter a valid number");
-                    AddBook(nameBook);
+                    GoStartUp();
                 }
             }
 
@@ -60,10 +67,8 @@ namespace Library
         {
             Console.Write("Buyer's name: ");
             string buyerName = Console.ReadLine();
-            User user = new User(nameBook, GetNumberPageOfBook(nameBook), buyerName);
-            user.BorrowedBook();
-            OwnedBooks ownedbook = new OwnedBooks(buyerName, nameBook);
-            ownedbook.AddBorrowedBook(nameBook, buyerName);
+            User user = new User( buyerName);
+            user.BorrowedBook(nameBook, GetNumberPageOfBook(nameBook));
             library.BorrowBook(nameBook);
             Console.WriteLine("The book is successfully borrowed!");
             GoStartUp();
@@ -78,30 +83,42 @@ namespace Library
             Console.WriteLine("2) Check if a book exist");
             Console.WriteLine("3) Borrow a book");
             Console.WriteLine("4) Add a new book");
+            Console.WriteLine("5) Add a new bookshelf");
             Console.Write("Please enter your choice: ");
             string input = Console.ReadLine();
             bool isInputAnInt = int.TryParse(input, out int inputInt);
             
             if (isInputAnInt)
             {
-                Console.Write("Please enter the name of book: ");
-                string nameBook = Console.ReadLine();
+                
                 switch (inputInt)
                 {
                     case 1:
-                        GetBookLocation(nameBook);
+                        Console.Write("Please enter the name of book: ");
+                        string nameBook = Console.ReadLine();
+                        Console.WriteLine(GetBookLocation(nameBook));
                         GoStartUp();
                         break;
                     case 2:
-                        if (FindBook(nameBook)) Console.WriteLine("The book " + nameBook + " exists");
-                        else Console.WriteLine("The book " + nameBook + " does not exist");
+                        Console.Write("Please enter the name of book: ");
+                        string nameBook1 = Console.ReadLine();
+                        if (FindBook(nameBook1)) Console.WriteLine("The book " + nameBook1 + " exists");
+                        else Console.WriteLine("The book " + nameBook1 + " does not exist");
                         GoStartUp();
                         break;
                     case 3:
-                        BorrowBook(nameBook);
+                        Console.Write("Please enter the name of book: ");
+                        string nameBook2 = Console.ReadLine();
+                        BorrowBook(nameBook2);
                         break;
                     case 4:
-                        AddBook(nameBook);
+                        Console.Write("Please enter the name of book: ");
+                        string nameBook3 = Console.ReadLine();
+                        AddBook(nameBook3);
+                        break;
+                    case 5:
+                        AddBookshelf();
+                        GoStartUp();
                         break;
                     default:
                         Console.Clear();
@@ -110,12 +127,19 @@ namespace Library
                         break;
                 }
             }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("You've entered a invalid number");
+                GoStartUp();
+            }
         }
         public void GoStartUp()
         {
             Console.WriteLine("-------------------");
             Console.WriteLine("Press enter to go back");
             Console.ReadLine();
+            Console.Clear();
             StartUp();
         }
     }
